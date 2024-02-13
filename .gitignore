@@ -1,1 +1,7 @@
-/.idea
+*~
+*.swp
+*.DS_Store
+.idea
+*.class
+*.log
+*.core
