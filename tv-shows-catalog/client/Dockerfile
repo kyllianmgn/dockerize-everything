@@ -1,19 +1,12 @@
 # Créer un Dockerfile pour cette application en mode production
 
-FROM node:18-alpine AS build
+FROM node:lts
 
 WORKDIR /app
 
-COPY package.json ./
-
-COPY package-lock.json ./
-
+COPY . .
 RUN npm install
-
-COPY . ./
-
 RUN npm run build
+EXPOSE 4173
 
-FROM nginx:1.25.3-alpine AS deploy-static
-
-COPY --from=build /app /usr/share/nginx/html
+CMD ["npm", "run", "preview"]

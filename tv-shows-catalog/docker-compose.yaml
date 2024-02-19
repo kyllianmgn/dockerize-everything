@@ -7,7 +7,7 @@ services:
     container_name: client
     build: client
     ports:
-      - "5173:5173"
+      - "4173:4173"
     depends_on:
       - server
     volumes:
@@ -17,7 +17,7 @@ services:
     container_name: server
     build: server
     ports:
-      - "8080:3000"
+      - "3000:3000"
     volumes:
       - "dbdata:/server/"
 
