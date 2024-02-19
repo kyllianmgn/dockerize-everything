@@ -10,16 +10,9 @@ services:
       - "4173:4173"
     depends_on:
       - server
-    volumes:
-      - "dbdata:/client/"
 
   server:
     container_name: server
     build: server
     ports:
       - "3000:3000"
-    volumes:
-      - "dbdata:/server/"
-
-volumes:
-  dbdata:
