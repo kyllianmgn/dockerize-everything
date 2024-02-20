@@ -25,7 +25,7 @@ Vous êtes invités à lire la suite de ce README afin de savoir comment constru
 ## Prérequis
 
 - PHP 8.3 avec les extensions suivantes :
-    - `intl`
+- `intl`
 - [Composer](https://getcomposer.org/download/)
 - [Symfony CLI](https://symfony.com/download).
 
