@@ -7,7 +7,7 @@ services:
     container_name: client
     build: client
     ports:
-      - "4173:80"
+      - "80:3000"
     depends_on:
       - server
 

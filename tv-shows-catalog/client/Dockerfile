@@ -8,4 +8,4 @@ ENV API_BASE_URL=http://server:3000
 RUN npm install
 RUN npm run build
 
-CMD ["npm", "run", "preview"]
+CMD ["node", "build/index.js"]
