@@ -1,31 +1,39 @@
 # Créer un Dockerfile pour cette application en mode production
 
 FROM php:8.3-fpm
-
-LABEL maintainer="Gilles Kounkoud <gkounkoud@myges.com>"
-LABEL version="1.0"
-
 #Dépendances
 RUN apt-get update && apt-get install -y \
         libicu-dev \
-        wget \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+        libzip-dev \
+        zip \
+        git\
+    && docker-php-ext-install intl zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 #Installation de intl
 RUN docker-php-ext-install intl
 
 # Installation de composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
-# Configuration de l'application
-WORKDIR /var/www
+#RUN mv composer.phar /usr/bin/composer
+
+WORKDIR /var/www/html
 
 COPY . .
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
+# Configuration de l'application
 
 RUN composer install --no-dev --optimize-autoloader
 
 RUN php bin/console asset-map:compile
 
-RUN chown -R www-data:www-data /var/www/html/
+COPY --chown=www-data:www-data . .
 
 USER www-data
+
+CMD ["php-fpm"]
+
+
